@@ -1,30 +1,27 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
-
-const MenuContainer = styled.nav`
-  background: ${(props) => props.theme.corMenuBackground};
-  display: flex;
-  justify-content: space-between;
-  padding: 1rem;
-`;
-
-const MenuItem = styled(Link)`
-  text-decoration: none;
-  color: ${(props) => props.theme.corTextoMenu};
-  margin: 0 1rem;
-`;
-
-const Menu = ({ toggleTheme }) => {
-  return (
-    <MenuContainer>
-      <MenuItem to="/">Home</MenuItem>
-      <MenuItem to="/contato">Contato</MenuItem>
-      <MenuItem to="/sobre">Sobre</MenuItem>
-      <MenuItem to="/tema">Tema</MenuItem>
-      <button onClick={toggleTheme}>Alternar Tema</button>
-    </MenuContainer>
-  );
-};
-
-export default Menu;
+function menu() {
+    const menu = {
+        background: 'green',
+        display: 'flex',
+        justifyContent: 'right'
+    }
+    const link = {
+        display: 'inlineBlock',
+        textDecoration: 'none',
+        padding: '30px',
+        color: '#fff',
+        fontSize: '20px'
+    }
+    return (
+        <>
+            <nav style={menu}>
+                <ul style={{ display: 'flex', listStyle: 'none' }}>
+                    <li><a href="/" style={link}>HOME</a>  </li>
+                    <li><a href="/eradigital" style={link}>ERA DIGITAL</a>  </li>
+                    <li><a href="/sobre"style={link} >SOBRE</a>  </li>
+                    <li><a href="/cep"style={link} >CEP</a>  </li>
+                </ul>
+            </nav>
+        </>
+    )
+}
+export default menu;

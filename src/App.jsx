@@ -1,50 +1,35 @@
+import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import Home from './pages/Home';
+import Sobre from './pages/Sobre';
 import React, { useState } from 'react';
-import { createGlobalStyle, ThemeProvider } from 'styled-components';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
-
-import Menu from './Componentes/Menu';
-import Inicial from './Paginas/Inicial';
-import Contato from './Paginas/Contato';
-import Sobre from './Paginas/Sobre';
-import Tema from './Paginas/Tema';
-
-const GlobalStyle = createGlobalStyle`
-  body {
-    background-color: ${(props) => props.theme.corFundo};
-    color: ${(props) => props.theme.corTexto};
-    transition: background-color 0.3s, color 0.3s;
-  }
-`;
+import EraDigital from './Pages/EraDigital';
+import { Container,Button,lightTheme,darkTheme } from './Estilos/Estilo';
+import { ThemeProvider } from 'styled-components';
+import Cep from './pages/Cep';
 
 function App() {
-  const [theme, setTheme] = useState('light');
-
-  const toggleTheme = () => {
-    setTheme(theme === 'light' ? 'dark' : 'light');
-  };
-
+  const [theme,setTheme]= useState('light')
+  const mudarTheme = () => {
+      setTheme(mudar => mudar === 'light'? 'dark' : 'light')
+  }
   return (
-    <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
-      <GlobalStyle />
-      <Router>
-        <Menu toggleTheme={toggleTheme} />
-        <Switch>
-          <Route path="/contato">
-            <Contato />
-          </Route>
-          <Route path="/sobre">
-            <Sobre />
-          </Route>
-          <Route path="/tema">
-            <Tema />
-          </Route>
-          <Route path="/">
-            <Inicial />
-          </Route>
-        </Switch>
-      </Router>
+    <>
+    <ThemeProvider theme={theme ==='light' ? lightTheme : darkTheme}>
+     <h1>ERA DIGITAL</h1>
+    <Button onClick={mudarTheme}>Clique Aqui</Button>
+    <hr/>
+    <Container>
+                  <BrowserRouter>
+                    <Routes>
+                          <Route path='/' element={<Home />} />
+                          <Route path='/sobre' element={<Sobre />} />
+                          <Route path='/eradigital' element={<EraDigital />} />
+                          <Route path='/cep' element={<Cep />} />
+                    </Routes>
+                  </BrowserRouter>
+    </Container>
     </ThemeProvider>
+    </>
   );
 }
-
 export default App;
