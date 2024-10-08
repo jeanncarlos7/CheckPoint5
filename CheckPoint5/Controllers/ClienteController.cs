@@ -87,6 +87,7 @@ namespace CheckPoint5.Controllers
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Update(string id, ClienteInsertModel updatedEntity)
         {
             var entity = await _mongoDbService.GetByIdAsync(id);
@@ -102,6 +103,12 @@ namespace CheckPoint5.Controllers
                 Nome = updatedEntity.Nome,
                 Email = updatedEntity.Email
             };
+
+            if (!cliente.IsValidEmail(cliente.Email))
+                return BadRequest("Email inválido");
+
+            if (!cliente.IsValid())
+                return BadRequest("Cliente inválido");
 
             cliente.Id = entity.Id;
             await _mongoDbService.UpdateAsync(id, cliente);
