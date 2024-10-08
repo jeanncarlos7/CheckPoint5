@@ -1,99 +1,77 @@
-# Sistema de Gestão
+# CheckPoint5 
 
-## Alunos: 
-•	Felipe Torlai RM 550263
-•	Felipe Pinheiro RM 550244
-•	Gabriel Girami RM 98017
-•	Gustavo Vinhola RM 98826
+## Aluno: 
 •	Jean Carlos RM 550430 
 
-## Visão Geral
-Este projeto é um sistema de gestão que permite a administração de produtos, tarefas, usuários e avaliações. 
-Ele foi desenvolvido com o intuito de criar uma solução escalável e eficiente para o gerenciamento de dados em diferentes módulos.
-O sistema inclui integração com bancos de dados relacionais (Oracle) e NoSQL (MongoDB), além de oferecer uma API RESTful para interagir com os diferentes modelos.
+## Descrição do Projeto
+O **CheckPoint5** é uma aplicação web construída utilizando a tecnologia .NET Core, com uma arquitetura baseada em uma WebAPI que realiza operações CRUD (Create, Read, Update, Delete) para gerenciar dados de clientes em um banco de dados MongoDB. O projeto também inclui chamadas assíncronas e testes unitários utilizando o framework xUnit.
 
-## Tecnologias Utilizadas:
-C# com ASP.NET Core
-Entity Framework Core (para integração com Oracle)
-MongoDB.Driver (para integração com MongoDB)
-Swagger/OpenAPI (para documentação da API)
-Microsoft Extensions para gerenciamento de dependências e configurações
+## Tecnologias Utilizadas
+- **.NET Core 8**: Framework utilizado para desenvolver a API.
+- **MongoDB**: Banco de dados NoSQL utilizado para armazenar os dados dos clientes.
+- **xUnit**: Framework de testes unitários utilizado para garantir a confiabilidade do código.
+- **Swagger**: Ferramenta de documentação e teste da API.
+- **Docker**: Utilizado para rodar o ambiente de desenvolvimento.
+
+## Funcionalidades
+- **Cadastro de Clientes**: Permite adicionar novos clientes ao sistema.
+- **Consulta de Clientes**: Recupera a lista de clientes cadastrados.
+- **Atualização de Dados**: Atualiza informações de clientes existentes.
+- **Remoção de Clientes**: Remove clientes do banco de dados.
+- **Validação de E-mail**: Validação de formato de e-mail utilizando expressões regulares.
+- **Testes Unitários**: Cobertura de testes unitários para validação dos métodos da API.
 
 ## Estrutura do Projeto
-Camadas Principais:
-  Models: Representam as entidades do sistema como Produto, Tarefa, Usuario, Avaliacao, Cliente.
-  Repositorios: Contém interfaces e implementações dos repositórios para gerenciar operações de banco de dados (CRUD).
-  Controllers: Controladores que expõem a API e lidam com as solicitações HTTP.
-  Services: Serviços que encapsulam a lógica de negócios e comunicação com MongoDB.
-  ConfiguracaoSingleton: Implementa o padrão Singleton para gerenciar a configuração central do sistema.
-  Settings: Gerencia configurações específicas como conexões ao banco de dados.
-  
-## Funcionalidades
-1. Gerenciamento de Produtos
-  Listar Produtos: Retorna todos os produtos disponíveis no sistema.
-  Adicionar Produto: Cadastra um novo produto.
-  Atualizar Produto: Atualiza informações de um produto existente.
-  Deletar Produto: Remove um produto.
+O projeto está organizado da seguinte maneira:
 
-2. Gerenciamento de Tarefas
-  Listar Tarefas: Retorna todas as tarefas cadastradas.
-  Adicionar Tarefa: Adiciona uma nova tarefa ao sistema.
-  Atualizar Tarefa: Atualiza uma tarefa existente.
-  Deletar Tarefa: Remove uma tarefa.
+CheckPoint5/ │ ├── CheckPoint5/ │ ├── Controllers/ │ ├── Models/ │ ├── Services/ │ ├── Settings/ │ └── Program.cs │ ├── CheckPoint5.Tests/ │ └── MongoDbServiceTests.cs │ └── ClienteModelTests.cs │ ├── docker-compose.yml ├── CheckPoint5.sln └── README.md
 
-3. Gerenciamento de Usuários
-  Listar Usuários: Retorna todos os usuários cadastrados.
-  Adicionar Usuário: Cadastra um novo usuário no sistema.
-  Atualizar Usuário: Atualiza as informações de um usuário existente.
-  Deletar Usuário: Remove um usuário do sistema.
+### Principais Componentes
+1. **Models**: Contém as classes que representam as entidades do projeto, como `ClienteModel`.
+2. **Services**: Contém a lógica de negócio e a integração com o MongoDB, como a classe `MongoDbService`.
+3. **Controllers**: Define os endpoints da API.
+4. **Settings**: Contém as configurações relacionadas ao MongoDB.
+5. **Tests**: Contém os testes unitários para validar a funcionalidade do sistema.
 
-4. Avaliações de Usuários
-  Listar Avaliações: Retorna todas as avaliações feitas no sistema.
-  Adicionar Avaliação: Cadastra uma nova avaliação relacionada a um usuário.
-  Atualizar Avaliação: Atualiza uma avaliação existente.
-  Deletar Avaliação: Remove uma avaliação.
+## Requisitos para Rodar o Projeto
+- .NET Core SDK 8.0 ou superior
+- Docker (para rodar MongoDB em container)
+- MongoDB (instalado localmente ou em um container)
+- Visual Studio ou Visual Studio Code (para desenvolvimento)
 
-5. Gerenciamento de Clientes (MongoDB)
-  Listar Clientes: Retorna todos os clientes cadastrados no MongoDB.
-  Adicionar Cliente: Adiciona um novo cliente à base MongoDB.
-  Atualizar Cliente: Atualiza informações de um cliente existente.
-  Deletar Cliente: Remove um cliente do sistema MongoDB.
+## Configurar as Dependências:
+- Instalar as dependências do projeto: dotnet restore
+- Rodar MongoDB com Docker (opcional, caso não tenha o MongoDB instalado): docker-compose up -d
+- Configurar as Variáveis de Ambiente: Verifique o arquivo appsettings.json e ajuste as configurações de conexão com o MongoDB:
+{
+  "MongoDbSettings": {
+    "ConnectionString": "mongodb://localhost:27017",
+    "DatabaseName": "CheckPoint5DB",
+    "CollectionName": "Clientes"
+  }
+}
+- Executar a Aplicação: dotnet run --project CheckPoint5
 
-## Instalação e Configuração
-Pré-requisitos:
-  .NET SDK 7.0 ou superior: Para rodar e compilar a API.
-  Visual Studio Code: IDE para desenvolvimento e execução do projeto.
-  SQL Server ou Oracle: Servidor de banco de dados relacional utilizado no projeto.
-  Docker (Opcional): Para rodar o banco de dados em containers Docker, caso prefira.
-  Postman ou similar: Para testar as requisições HTTP da API.
-
-## Passos para rodar o projeto:
-1. Clone o repositório:
-git clone https://github.com/jeanncarlos7/ChallengeCheckPoint5.git 
-cd challenge-sistema-de-gestao
-
-## Testes
-Para rodar os testes, siga os passos abaixo:
-
-1. Instalar pacotes de teste: Certifique-se de que você tem as bibliotecas de testes instaladas:
-dotnet add package NUnit
-dotnet add package NUnit3TestAdapter
-dotnet add package Microsoft.NET.Test.Sdk
-
-2. Executar testes:
-dotnet test
+## Executar Testes Unitários
+Para rodar os testes unitários, execute o comando abaixo na raiz do projeto: dotnet test
 
 ## Contribuição
-Sinta-se à vontade para contribuir com melhorias para o projeto. Para isso, siga o fluxo abaixo:
+Contribuições são bem-vindas! Se você deseja contribuir com o projeto, siga os passos abaixo:
 
-  Faça um Fork do projeto.
-  Crie uma nova branch para sua funcionalidade (git checkout -b feature/nova-funcionalidade).
-  Commit suas alterações (git commit -m 'Adiciona nova funcionalidade').
-  Faça o Push para o branch (git push origin feature/nova-funcionalidade).
-  Abra um Pull Request.
-  
+- Faça um fork do repositório.
+- Crie uma branch para a nova feature (git checkout -b feature/MinhaFeature).
+- Commit suas alterações (git commit -m 'Adiciona nova feature').
+- Faça o push para a branch (git push origin feature/MinhaFeature).
+- Abra um Pull Request.
+
 ## Licença
-Este projeto está licenciado sob a MIT License - veja o arquivo LICENSE para mais detalhes.
+Este projeto está licenciado sob a Licença MIT. Consulte o arquivo LICENSE para obter mais informações.
+
+
+
+
+
+
 
 
 
