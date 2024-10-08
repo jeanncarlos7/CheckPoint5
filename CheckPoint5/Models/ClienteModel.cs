@@ -1,5 +1,6 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using System.Text.RegularExpressions;
 
 namespace CheckPoint5.Models
 {
@@ -24,6 +25,16 @@ namespace CheckPoint5.Models
             if (string.IsNullOrWhiteSpace(Email)) { return false; }
 
             return true;
+        }
+
+        // Método para validar e-mail usando expressão regular
+        public bool IsValidEmail(string email)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+                return false;
+
+            string emailPattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+            return Regex.IsMatch(email, emailPattern);
         }
     }
 }

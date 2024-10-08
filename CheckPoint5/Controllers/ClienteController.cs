@@ -31,7 +31,7 @@ namespace CheckPoint5.Controllers
             var list = await _mongoDbService.GetAsync();
             return Ok(list);
         }
-            
+
 
         /// <summary>
         /// Obtem um cliente.
@@ -58,14 +58,19 @@ namespace CheckPoint5.Controllers
         /// <returns>Os itens de cliente criado.</returns>
         /// <response code="201">Retorna os itens criados de cliente cadastrado.</response>
         [HttpPost]
-        [ProducesResponseType( StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Post(ClienteInsertModel clienteInsert)
         {
-            var cliente = new ClienteModel { 
+            var cliente = new ClienteModel
+            {
                 Id = ObjectId.GenerateNewId().ToString(),  // Gera um novo ObjectId
                 Nome = clienteInsert.Nome,
-                Email = clienteInsert.Email            
+                Email = clienteInsert.Email
             };
+
+            if (!cliente.IsValidEmail(clienteInsert.Email))
+                return BadRequest("Email inválido");
 
             if (!cliente.IsValid())
                 return BadRequest("Cliente inválido");
@@ -91,7 +96,8 @@ namespace CheckPoint5.Controllers
                 return NotFound();
             }
 
-            var cliente = new ClienteModel { 
+            var cliente = new ClienteModel
+            {
                 Id = id,
                 Nome = updatedEntity.Nome,
                 Email = updatedEntity.Email

@@ -46,5 +46,25 @@ namespace CheckPoint5.Tests
             // Assert
             Assert.False(result);
         }
+
+        [Theory]
+        [InlineData("joao.silva@email.com", true)]
+        [InlineData("joao.silva.email.com", false)] // Falta o @
+        [InlineData("joao.silva@", false)] // Falta o domínio
+        [InlineData("joao.silva@email", false)] // Falta o sufixo (.com, .org, etc.)
+        [InlineData("joao@silva@domain.com", false)] // Dois @
+        [InlineData("", false)] // Email vazio
+        [InlineData(null, false)] // Email nulo
+        public void IsValidEmail_ReturnsExpectedResult(string email, bool expectedResult)
+        {
+            // Arrange
+            var cliente = new ClienteModel();
+
+            // Act
+            var result = cliente.IsValidEmail(email);
+
+            // Assert
+            Assert.Equal(expectedResult, result);
+        }
     }
 }
