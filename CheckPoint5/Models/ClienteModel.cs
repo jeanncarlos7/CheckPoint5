@@ -14,5 +14,16 @@ namespace CheckPoint5.Models
 
         [BsonElement("Email")]
         public string Email { get; set; }
+
+        public bool IsValid()
+        {
+            if (string.IsNullOrWhiteSpace(Id)) { return false; }
+
+            if (string.IsNullOrWhiteSpace(Nome)) { return false; }
+
+            if (string.IsNullOrWhiteSpace(Email)) { return false; }
+
+            return true;
+        }
     }
 }

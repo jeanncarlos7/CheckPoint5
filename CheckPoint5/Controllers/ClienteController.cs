@@ -67,6 +67,9 @@ namespace CheckPoint5.Controllers
                 Email = clienteInsert.Email            
             };
 
+            if (!cliente.IsValid())
+                return BadRequest("Cliente inválido");
+
             await _mongoDbService.CreateAsync(cliente);
             return CreatedAtAction(nameof(Get), new { id = cliente.Id }, cliente);
         }
